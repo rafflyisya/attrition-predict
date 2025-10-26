@@ -503,11 +503,18 @@ Dilakukan transform untuk preprocessing pada data test. Kemudian, dilakukan pred
 - **Kolmogorov-Smirnov (KS) Statistic**: 0.80
 
 #### Confusion Matrix
+<figure>
+    <center><img src="img/confusion-matrix.png" alt="Confusion Matrix"></center>
+</figure>
 
 #### Plot ROC-AUC Curve
-
+<figure>
+    <center><img src="img/ROC Plot.png" alt="ROC Plot"></center>
+</figure>
 #### Plot PR-AUC Curve
-
+<figure>
+    <center><img src="img/PR Plot.png" alt="PR Plot"></center>
+</figure>
 
 | No | Metrik     | Nilai     |
 |----|------------|-----------|
@@ -540,10 +547,14 @@ Selain itu, **kesamaan skor antara data train, test, dan validasi** menunjukkan 
 Melakukan analisis terhadap distribusi probabilitas attrition yang diprediksi oleh model.
 
 
-
+<figure>
+    <center><img src="img/Stacking Ensemble Dist.png" alt="Stacking Ensemble Dist"></center>
+</figure>
 Dapat dilihat bahwa ada pemisahan yang jelas antara distribusi probabilitas yang diprediksi untuk attrition dan no attrition.
 
-
+<figure>
+    <center><img src="img/Ordering Score.png" alt="Ordering Score"></center>
+</figure>
 Grafik ini membuktikan bahwa model Anda sangat akurat, karena semakin tinggi prediksi risiko attrition (Desil 1 ke 10), semakin tinggi pula tingkat attrition karyawan yang sebenarnya terjadi.
 
 ---
@@ -594,8 +605,10 @@ $$
 
 - Visualisasi **waterfall plot** digunakan untuk menunjukkan **kontribusi masing-masing fitur terhadap prediksi attrition** baik untuk observasi positif (attrition) maupun negatif (no attrition).
 
-#### Sampel salah satu pelanggan
-
+#### Sampel salah satu karyawan
+<figure>
+    <center><img src="img/Sample.jpeg" alt="Sample"></center>
+</figure>
 
 - Karyawan ini diprediksi akan attrition (keluar), dengan probabilitas attrition yang sangat tinggi yaitu 95.81% (transformasi dari nilai log-odds akhir $f(x) = 3.129$ melalui fungsi logistik).
 
@@ -606,7 +619,9 @@ $$
 - Sebaliknya, satu-satunya faktor signifikan yang menahan karyawan ini adalah OverTime (Lembur) yang bernilai 0.111 (kemungkinan besar berarti "Tidak Lembur" setelah di-encode), yang menurunkan log-odds attrition sebesar 0,42. Ini menunjukkan bahwa fakta bahwa dia tidak lembur adalah satu-satunya alasan kuat untuk bertahan, namun pengaruhnya kalah telak oleh akumulasi faktor-faktor pendorong keluar lainnya..
 
 ### 2. Feature Importance
-
+<figure>
+    <center><img src="img/feature importance.jpeg" alt="Feature Importance"></center>
+</figure>
 
 - Seperti yang terlihat jelas, OverTime (Lembur) merupakan fitur yang paling penting dengan selisih yang sangat besar. Fitur penting berikutnya adalah JobRole (Peran Pekerjaan) dan WorkLifeBalance (Keseimbangan Kehidupan Kerja).
 
@@ -616,7 +631,9 @@ $$
 
 - Sekarang, melalui **beeswarm plot**, kita dapat mengamati hubungan antara fitur-fitur dan prediksi model.
 
-
+<figure>
+    <center><img src="img/beeswarm.jpeg" alt="beeswarm"></center>
+</figure>
 - Terlihat bahwa nilai tinggi (ditunjukkan oleh warna merah) pada OverTime memiliki dampak positif terhadap log-odds attrition, dan, akibatnya, terhadap probabilitas attrition, sedangkan nilai rendah (biru) memiliki dampak negatif.
 
 - Selain itu, nilai rendah (biru) pada JobSatisfaction cenderung memberikan dampak positif terhadap log-odds attrition, dan, akibatnya, probabilitas attrition, sedangkan nilai tinggi (merah) cenderung memiliki dampak negatif.

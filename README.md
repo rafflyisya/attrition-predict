@@ -56,7 +56,7 @@
 ## **Domain Proyek: Keuangan**
 
 <figure>
-    <center><img src="E:/Attrition/img/employee-churn.png" alt="Employee Attrition"></center>
+    <center><img src="../img/employee-churn.png" alt="Employee Attrition"></center>
 </figure>
 
 Manajemen sumber daya manusia merupakan salah satu aspek krusial dalam menjaga keberlanjutan dan daya saing perusahaan di era bisnis modern. Keberhasilan sebuah organisasi tidak hanya ditentukan oleh strategi bisnis dan inovasi produk, tetapi juga oleh kemampuan dalam mempertahankan karyawan yang berkompeten dan berprestasi. Fenomena tingginya tingkat attrition atau employee turnover menjadi tantangan yang signifikan karena dapat menimbulkan berbagai konsekuensi, mulai dari meningkatnya biaya rekrutmen dan pelatihan, terganggunya produktivitas, hingga menurunnya moral kerja tim [[1]](https://www.americanprogress.org/article/there-are-significant-business-costs-to-replacing-employees/?utm_source).

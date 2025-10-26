@@ -7,7 +7,7 @@
 ---
 ## Daftar Isi
 
-- [Domain Proyek: Keuangan](#domain-proyek-keuangan)
+- [Domain Proyek: Attrition](#domain-proyek-attrition)
   - [Referensi](#referensi)
 - [Business Understanding](#business-understanding)
   - [Problem Statements](#problem-statements)
@@ -27,10 +27,8 @@
   - [Label Encoding dengan Mapping pada Fitur Target](#1-label-encoding-dengan-mapping-pada-fitur-target)
   - [Splitting Dataset](#2-splitting-dataset)
   - [Feature Engineering, Data Cleaning and Preprocessing](#3-feature-engineering-data-cleaning-and-preprocessing)
-- [Model Training, Comparison, Selection and Tuning](#model-training-comparison-selection-and-tuning)
+- [Model Training, Comparison](#model-training-comparison)
   - [Model Selection](#1-model-selection)
-  - [Feature Selection](#2-feature-selection)
-  - [Hyperparameter Tuning](#3-hyperparameter-tuning)
 - [Model Testing and Evaluation](#model-testing-and-evaluation)
   - [Data Test Predict](#1-data-test-predict)
   - [Best Model Evaluation](#2-best-model-evaluation)
@@ -43,7 +41,7 @@
 - [Model Interpretation](#model-interpretation)
   - [Interpretation with SHAP Values](#1-interpretation-with-shap-values)
   - [Feature Importance](#2-feature-importance)
-- [Financial Result](#financial-result)
+- [Attrition Result](#attrition-result)
 - [Conclusions](#conclusions)
   - [Ringkasan Proyek](#ringkasan-proyek)
   - [Hasil dan Evaluasi Model](#hasil-dan-evaluasi-model)
@@ -178,45 +176,45 @@ Dataset ini memiliki **35 fitur**, yang mencakup usia, frekuensi perjalanan, gaj
 
 ### [Exploratory Data Analysis] - Deskripsi Variabel
 
-| Fitur                       | Count   | Mean         | Std          | Min       | 25%          | 50%          | 75%          | Max          |
-|-----------------------------|---------|--------------|--------------|-----------|--------------|--------------|--------------|--------------|
-| `clientnum`                 | 10127   | 7.391776e+08 | 3.690378e+07 | 708082083 | 7.130368e+08 | 7.179264e+08 | 7.731435e+08 | 8.283431e+08 |
-| `customer_age`              | 10127   | 46.32596     | 8.016814     | 26.0      | 41.0         | 46.0         | 52.0         | 73.0         |
-| `dependent_count`           | 10127   | 2.346203     | 1.298908     | 0.0       | 1.0          | 2.0          | 3.0          | 5.0          |
-| `months_on_book`            | 10127   | 35.92841     | 7.986416     | 13.0      | 31.0         | 36.0         | 40.0         | 56.0         |
-| `total_relationship_count`  | 10127   | 3.812580     | 1.554408     | 1.0       | 3.0          | 4.0          | 5.0          | 6.0          |
-| `months_inactive_12_mon`    | 10127   | 2.341167     | 1.010622     | 0.0       | 2.0          | 2.0          | 3.0          | 6.0          |
-| `contacts_count_12_mon`     | 10127   | 2.455317     | 1.106225     | 0.0       | 2.0          | 2.0          | 3.0          | 6.0          |
-| `credit_limit`              | 10127   | 8631.954     | 9088.777     | 1438.3    | 2555.0       | 4549.0       | 11067.5      | 34516.0      |
-| `total_revolving_bal`       | 10127   | 1162.814     | 814.9873     | 0.0       | 359.0        | 1276.0       | 1784.0       | 2517.0       |
-| `avg_open_to_buy`           | 10127   | 7469.140     | 9090.685     | 3.0       | 1324.5       | 3474.0       | 9859.0       | 34516.0      |
-| `total_amt_chng_q4_q1`      | 10127   | 0.759941     | 0.219207     | 0.0       | 0.631        | 0.736        | 0.859        | 3.397        |
-| `total_trans_amt`           | 10127   | 4404.086     | 3397.129     | 510.0     | 2155.5       | 3899.0       | 4741.0       | 18484.0      |
-| `total_trans_ct`            | 10127   | 64.85869     | 23.47257     | 10.0      | 45.0         | 67.0         | 81.0         | 139.0        |
-| `total_ct_chng_q4_q1`       | 10127   | 0.712222     | 0.238086     | 0.0       | 0.582        | 0.702        | 0.818        | 3.714        |
-| `avg_utilization_ratio`     | 10127   | 0.274894     | 0.275692     | 0.0       | 0.023        | 0.176        | 0.503        | 0.999        |
+| Fitur                   |   count |            mean |        std |        min |         25% |           50% |          75% |         max |
+|:------------------------|--------:|----------------:|-----------:|-----------:|------------:|--------------:|-------------:|------------:|
+| Age                     |    1176 |    36.9983      |    9.17814 |   18       |   30        |    36         |    43        |    60       |
+| DailyRate               |    1176 |   803.991       |  401.339   |  103       |  467.75     |   799.5       |  1157        |  1499       |
+| DistanceFromHome        |    1176 |     9.35799     |    8.1798  |    1       |    2        |     7         |    14        |    29       |
+| EmployeeNumber          |    1176 |  1015.83        |  599.657   |    1       |  487.75     |  1004.5       |  1547.25     |  2062       |
+| HourlyRate              |    1176 |    65.5         |   20.3733  |   30       |   48        |    66         |    83        |   100       |
+| MonthlyIncome           |    1176 |    -2.0558e-15  |    1.00043 |   -2.87116 |   -0.866219 |    -0.0105816 |     0.754662 |     1.8764  |
+| MonthlyRate             |    1176 | 14390.2         | 7192.83    | 2094       | 8051        | 14373         | 20770.8      | 26999       |
+| NumCompaniesWorked      |    1176 |     2.69303     |    2.48608 |    0       |    1        |     2         |     4        |     9       |
+| PercentSalaryHike       |    1176 |    15.2398      |    3.67908 |   11       |   12        |    14         |    18        |    25       |
+| TotalWorkingYears       |    1176 |    -4.47865e-16 |    1.00043 |   -2.5701  |   -0.605437 |     0.0392597 |     0.643954 |     2.49818 |
+| TrainingTimesLastYear   |    1176 |     2.7602      |    1.25626 |    0       |    2        |     3         |     3        |     6       |
+| YearsAtCompany          |    1176 |    -4.56173e-16 |    1.00043 |   -2.24665 |   -0.611588 |    -0.0828035 |     0.75437  |     2.65639 |
+| YearsInCurrentRole      |    1176 |     4.23129     |    3.5695  |    0       |    2        |     3         |     7        |    17       |
+| YearsSinceLastPromotion |    1176 |     1.51051e-17 |    1.00043 |   -1.09151 |   -1.09151  |     0.101344  |     0.908569 |     1.82449 |
+| YearsWithCurrManager    |    1176 |     4.19643     |    3.5648  |    0       |    2        |     3         |     7        |    17       |
      
 Berdasarkan hasil analisis data, profil **1.467** karyawan menunjukkan karakteristik kunci **usia rata-rata 37 tahun** dengan **masa kerja rata-rata 7 tahun** di perusahaan. Dari segi kompensasi, **gaji bulanan rata-rata Rp 6,5 juta** dengan **kenaikan gaji tahunan 15%**. Temuan penting mengungkap bahwa karyawan **hanya mengalami 1 kali promosi dalam 2 tahun terakhir**, dan rata-rata telah **bekerja di 2-3 perusahaan sebelumnya**. Pola ini mengindikasikan bahwa stagnasi karir dan riwayat mobilitas kerja dapat menjadi faktor prediktif yang signifikan untuk analisis employee attrition.
 
 ### Rata-rata Fitur per Kategori Attrition
 
-| Fitur                         | Attrited Customer | Existing Customer |
-|-------------------------------|-------------------|-------------------|
-| `clientnum`                   | 7.352614e+08      | 7.399272e+08      |
-| `customer_age`                | 46.66             | 46.26             |
-| `dependent_count`             | 2.40              | 2.34              |
-| `months_on_book`              | 36.18             | 35.88             |
-| `total_relationship_count`    | 3.28              | 3.91              |
-| `months_inactive_12_mon`      | 2.69              | 2.27              |
-| `contacts_count_12_mon`       | 2.97              | 2.36              |
-| `credit_limit`                | 8136.04           | 8726.88           |
-| `total_revolving_bal`         | 672.82            | 1256.60           |
-| `avg_open_to_buy`             | 7463.22           | 7470.27           |
-| `total_amt_chng_q4_q1`        | 0.6943            | 0.7725            |
-| `total_trans_amt`             | 3095.03           | 4654.66           |
-| `total_trans_ct`              | 44.93             | 68.67             |
-| `total_ct_chng_q4_q1`         | 0.5544            | 0.7424            |
-| `avg_utilization_ratio`       | 0.1625            | 0.2964            |
+| Fitur                   |             0 |            1 |
+|:------------------------|--------------:|-------------:|
+| Age                     |    37.7444    |    33.1263   |
+| DailyRate               |   816.565     |   738.742    |
+| DistanceFromHome        |     9.04665   |    10.9737   |
+| EmployeeNumber          |  1009.8       |  1047.15     |
+| HourlyRate              |    65.6734    |    64.6      |
+| MonthlyIncome           |     0.0929293 |    -0.482254 |
+| MonthlyRate             | 14321.5       | 14747.1      |
+| NumCompaniesWorked      |     2.63996   |     2.96842  |
+| PercentSalaryHike       |    15.2546    |    15.1632   |
+| TotalWorkingYears       |     0.103021  |    -0.534622 |
+| TrainingTimesLastYear   |     2.78195   |     2.64737  |
+| YearsAtCompany          |     0.0931056 |    -0.483169 |
+| YearsInCurrentRole      |     4.4929    |     2.87368  |
+| YearsSinceLastPromotion |     0.0305439 |    -0.158507 |
+| YearsWithCurrManager    |     4.46045   |     2.82632  |
 
 Berdasarkan analisis perbandingan antara karyawan yang mengundurkan diri dan yang bertahan, terlihat pola yang signifikan. Karyawan yang keluar cenderung lebih muda dengan masa kerja di perusahaan yang lebih pendek. Mereka juga memiliki pendapatan bulanan yang lebih rendah dan jarak tempuh ke kantor yang lebih jauh. Faktor karir menunjukkan perbedaan mencolok dimana karyawan yang keluar memiliki lebih sedikit pengalaman kerja total, waktu di posisi saat ini yang lebih singkat, dan durasi bekerja dengan manajer yang sama yang lebih pendek. Temuan ini mengindikasikan bahwa karyawan yang lebih muda dengan prospek karir yang terbatas dan keterikatan organisasi yang rendah memiliki kecenderungan lebih besar untuk meninggalkan perusahaan.
 

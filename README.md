@@ -138,28 +138,28 @@ Dataset ini memiliki **35 fitur**, yang mencakup usia, frekuensi perjalanan, gaj
 | Nama Fitur                         | Deskripsi                                                                 | Tipe Data    |
 |------------------------------------|---------------------------------------------------------------------------|--------------|
 | `id`                        | ID unik karyawan untuk identifikasi.                                                         | `int64`      |
-| `Age`   | Usia karyawan.                | `int64t`     |
+| `Age`   | Usia karyawan.                | `int64`     |
 | `BusinessTravel`                     |  Frekuensi perjalanan dinas karyawan.                                              | `int64`      |
 | `DailyRate`                           | Gaji harian. (`M`/`F`)                                         | `object`     |
 | `Department`                  | Departemen tempat karyawan. bekerja.                                                         | `int64`      |
 | `DistanceFromHome`                  | Jarak tempat tinggal karyawan ke kantor.                  | `object`     |
-| `Education`                   | STingkat pendidikan terakhir: 1 = Below College, 2 = College, 3 = Bachelor, 4 = Master, 5 = Doctor.                                               | `object`     |
+| `Education`                   | STingkat pendidikan terakhir: 1 = Below College, 2 = College, 3 = Bachelor, 4 = Master, 5 = Doctor.                                               | `int64`     |
 | `EducationField`                  | Bidang studi terakhir karyawan.                                     | `object`     |
-| `EmployeeCount`                    | Jumlah karyawan (selalu 1 dalam dataset).                                                        | `object`     |
+| `EmployeeCount`                    | Jumlah karyawan (selalu 1 dalam dataset).                                                        | `int64`     |
 | `EmployeeNumber`                   | Nomor unik karyawan dalam sistem. HR.                                   | `int64`      |
 | `EnvironmentSatisfaction`         | JTingkat kepuasan terhadap lingkungan kerja: 1 = Low, 2 = Medium, 3 = High, 4 = Very High.                                     | `int64`      |
-| `Gender`         | Jenis kelamin karyawan.                                     | `int64`      |
+| `Gender`         | Jenis kelamin karyawan.                                     | `object`      |
 | `HourlyRate`         | JUpah per jam.                                     | `int64`      |
 | `JobInvolvement`         | Tingkat keterlibatan pekerjaan.                                     | `int64`      |
 | `JobLevel`         | Level jabatan karyawan.                                     | `int64`      |
-| `JobRole`         | Posisi/jabatan spesifik karyawan.                                     | `int64`      |
+| `JobRole`         | Posisi/jabatan spesifik karyawan.                                     | `object`      |
 | `JobSatisfaction`         | Tingkat kepuasan pekerjaan.                                     | `int64`      |
-| `MaritalStatus`         | Status pernikahan karyawan.                                     | `int64`      |
+| `MaritalStatus`         | Status pernikahan karyawan.                                     | `object`      |
 | `MonthlyIncome`         | Gaji bulanan karyawan.                                     | `int64`      |
 | `MonthlyRate`         | Tarif bulanan karyawan.                                     | `int64`      |
 | `NumCompaniesWorked`         | JJumlah perusahaan tempat karyawan pernah bekerja. sebelumnya.                                     | `int64`      |
 | `Over18`         | Status usia di atas 18 tahun (selalu Y dalam dataset).                                     | `int64`      |
-| `Overtime`         | Apakah karyawan sering lembur.                                     | `int64`      |
+| `Overtime`         | Apakah karyawan sering lembur.                                     | `object`      |
 | `PercentSalaryHike`         | Persentase kenaikan gaji tahunan terakhir.                                     | `int64`      |
 | `PerformanceRating`         | Penilaian kinerja terakhir.                                     | `int64`      |
 | `RelationshipSatifaction`         | Tingkat kepuasan terhadap hubungan kerja.                                     | `int64`      |
@@ -259,26 +259,39 @@ Berdasarkan hasil deteksi outlier menggunakan metode IQR, teridentifikasi bebera
 
 Namun, terdapat beberapa variabel yang bersih dari outlier seperti Age, DailyRate, DistanceFromHome, EmployeeNumber, HourlyRate, MonthlyRate, dan PercentSalaryHike. Hasil ini mengindikasikan bahwa sebagian besar outlier terkonsentrasi pada variabel-variabel yang berkaitan dengan pengalaman kerja, kompensasi, dan perkembangan karir karyawan.
 
-| Variabel                     | Jumlah Outlier |
-|------------------------------|----------------|
-| `clientnum`                  | 0              |
-| `customer_age`               | 22             |
-| `dependent_count`            | 0              |
-| `months_on_book`             | 3864           |
-| `total_relationship_count`   | 5              |
-| `months_inactive_12_mon`     | 3316           |
-| `contacts_count_12_mon`      | 6297           |
-| `credit_limit`               | 9848           |
-| `total_revolving_bal`        | 0              |
-| `avg_open_to_buy`            | 963            |
-| `total_amt_chng_q4_q1`       | 3961           |
-| `total_trans_amt`            | 896            |
-| `total_trans_ct`             | 2              |
-| `total_ct_chng_q4_q1`        | 3941           |
-| `avg_utilization_ratio`      | 0              |
+| Fitur                    |   Outlier |
+|:-------------------------|----------:|
+| id                       |         0 |
+| Age                      |         0 |
+| BusinessTravel           |         0 |
+| DailyRate                |         0 |
+| Department               |         0 |
+| DistanceFromHome         |         0 |
+| Education                |         0 |
+| EducationField           |         0 |
+| EmployeeNumber           |         0 |
+| EnvironmentSatisfaction  |         0 |
+| Gender                   |         0 |
+| HourlyRate               |         0 |
+| JobInvolvement           |         0 |
+| JobLevel                 |         0 |
+| JobRole                  |         0 |
+| JobSatisfaction          |         0 |
+| MaritalStatus            |         0 |
+| MonthlyIncome            |         0 |
+| MonthlyRate              |         0 |
+| NumCompaniesWorked       |        36 |
+| OverTime                 |         0 |
+| PercentSalaryHike        |         0 |
+| PerformanceRating        |       185 |
+...
+| YearsInCurrentRole       |        16 |
+| YearsSinceLastPromotion  |         0 |
+| YearsWithCurrManager     |        10 |
+| Attrition                |       190 |
 
 <figure>
-    <center><img src="img/output_1.png" alt="Box-Plot Outlier"></center>
+    <center><img src="img/box-plot.png" alt="Box-Plot Outlier"></center>
 </figure>
 
 Visualisasi melalui **boxplot** semakin memperjelas sebaran data dan keberadaan outlier di setiap fitur. Fitur seperti **TrainingTimeLastYear**, **MonthlyIncome**, dan beberapa fitur lain tampak memiliki sebaran yang lebar dengan banyak data berada di luar whisker (batas IQR), yang mengindikasikan variasi nilai ekstrim dalam data tersebut.
@@ -290,7 +303,7 @@ Meskipun demikian, outlier **tidak dihapus** dari dataset. Hal ini dilakukan unt
 
 #### Grafik 1: Distribusi Fitur Numerik
 <figure>
-    <center><img src="img/output_3.png" alt="Distribusi Fitur Numerik"></center>
+    <center><img src="img/numdist-plot.png" alt="Distribusi Fitur Numerik"></center>
 </figure>
 
 - Sebagian besar nasabah berusia antara 40–50 tahun dan telah menggunakan layanan kartu kredit bank selama 36 bulan. Limit kredit nasabah cenderung rendah, dengan distribusi limit yang miring ke kanan — hanya sekitar 5% yang memiliki limit tinggi (sekitar 35.000). Hal serupa juga terjadi pada avg_open_to_buy dan avg_utilization_ratio, yang juga berpola skewed ke kanan.

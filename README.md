@@ -127,7 +127,7 @@ Dengan implementasi solusi ini, manfaat utama yang diharapkan antara lain:
 ## Data Understanding
 
 ### Sumber Data  
-Dataset yang digunakan dalam proyek ini diperoleh dari situs [Kaggle](www.kaggle.com/competitions/tugas-1-sml-a-2025/overview/citation). Dataset ini mencakup informasi tentang **1.467 karyawant**, yang mencatat berbagai aspek kondisi dan identitas yang mempresentasikan kecenderungan karyawan untuk melakukan attrition.
+Dataset yang digunakan dalam proyek ini diperoleh dari situs [Kaggle](www.kaggle.com/competitions/tugas-1-sml-a-2025/overview/citation). Dataset ini mencakup informasi tentang **1.467 karyawan**, yang mencatat berbagai aspek kondisi dan identitas yang mempresentasikan kecenderungan karyawan untuk melakukan attrition.
 
 Dataset ini memiliki **35 fitur**, yang mencakup usia, frekuensi perjalanan, gaji harian, jarak tempat tinggal, tingkat pendidikan, tingkat kepuasan pekerjaan, dan lainnya. proyek ini bertujuan memprediksi employee attrition dimana sebesar 83,84% karyawan yang termasuk kategori attrition. Kondisi ketidakseimbangan kelas ini menjadi tantangan utama dalam membangun model prediktif yang akurat untuk mengidentifikasi pola-pola karyawan berisiko keluar dari perusahaan.
 

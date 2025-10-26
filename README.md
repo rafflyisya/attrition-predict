@@ -51,7 +51,7 @@
   - [Langkah Selanjutnya](#langkah-selanjutnya)
 
 ---
-## **Domain Proyek: Keuangan**
+## **Domain Proyek: Attrition**
 
 <figure>
     <center><img src="img/employee-churn.png" alt="Employee Attrition"></center>

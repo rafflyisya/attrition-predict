@@ -137,27 +137,43 @@ Dataset ini memiliki **35 fitur**, yang mencakup usia, frekuensi perjalanan, gaj
 
 | Nama Fitur                         | Deskripsi                                                                 | Tipe Data    |
 |------------------------------------|---------------------------------------------------------------------------|--------------|
-| `id`                        | ID unik karyawan untuk identifikasi                                                         | `int64`      |
-| `Age`   | Usia karyawan                | `int64t`     |
-| `BusinessTravel`                     | Usia pelanggan (dalam tahun)                                              | `int64`      |
-| `DailyRate`                           | Jenis kelamin pelanggan (`M`/`F`)                                         | `object`     |
-| `Department`                  | Jumlah tanggungan                                                         | `int64`      |
-| `DistanceFromHome`                  | Tingkat pendidikan: Graduate, High School, College, dll.                  | `object`     |
-| `Education`                   | Status pernikahan pelanggan                                               | `object`     |
-| `EducationField`                  | Kategori pendapatan tahunan pelanggan                                     | `object`     |
-| `EmployeeCount`                    | Jenis kartu kredit                                                        | `object`     |
-| `EmployeeNumber`                   | Lama hubungan dengan bank (dalam bulan)                                   | `int64`      |
-| `EnvironmentSatisfaction`         | Jumlah produk perbankan yang dimiliki                                     | `int64`      |
-| `months_inactive_12_mon`           | Jumlah bulan tidak aktif dalam 12 bulan terakhir                          | `int64`      |
-| `contacts_count_12_mon`            | Jumlah interaksi dengan bank dalam 12 bulan terakhir                      | `int64`      |
-| `credit_limit`                     | Batas maksimal kredit kartu pelanggan                                     | `float64`    |
-| `total_revolving_bal`              | Saldo bergulir (tidak dibayar penuh)                                      | `int64`      |
-| `avg_open_to_buy`                  | Rata-rata jumlah kredit yang tersedia untuk digunakan                     | `float64`    |
-| `total_amt_chng_q4_q1`             | Perubahan jumlah transaksi dari Q1 ke Q4                                  | `float64`    |
-| `total_trans_amt`                  | Total nilai transaksi selama 12 bulan terakhir                            | `int64`      |
-| `total_trans_ct`                   | Total jumlah transaksi selama 12 bulan terakhir                           | `int64`      |
-| `total_ct_chng_q4_q1`              | Perubahan jumlah transaksi dari Q1 ke Q4                                  | `float64`    |
-| `avg_utilization_ratio`            | Rata-rata rasio pemanfaatan limit kredit                                  | `float64`    |
+| `id`                        | ID unik karyawan untuk identifikasi.                                                         | `int64`      |
+| `Age`   | Usia karyawan.                | `int64t`     |
+| `BusinessTravel`                     |  Frekuensi perjalanan dinas karyawan.                                              | `int64`      |
+| `DailyRate`                           | Gaji harian. (`M`/`F`)                                         | `object`     |
+| `Department`                  | Departemen tempat karyawan. bekerja.                                                         | `int64`      |
+| `DistanceFromHome`                  | Jarak tempat tinggal karyawan ke kantor.                  | `object`     |
+| `Education`                   | STingkat pendidikan terakhir: 1 = Below College, 2 = College, 3 = Bachelor, 4 = Master, 5 = Doctor.                                               | `object`     |
+| `EducationField`                  | Bidang studi terakhir karyawan.                                     | `object`     |
+| `EmployeeCount`                    | Jumlah karyawan (selalu 1 dalam dataset).                                                        | `object`     |
+| `EmployeeNumber`                   | Nomor unik karyawan dalam sistem. HR.                                   | `int64`      |
+| `EnvironmentSatisfaction`         | JTingkat kepuasan terhadap lingkungan kerja: 1 = Low, 2 = Medium, 3 = High, 4 = Very High.                                     | `int64`      |
+| `Gender`         | Jenis kelamin karyawan.                                     | `int64`      |
+| `HourlyRate`         | JUpah per jam.                                     | `int64`      |
+| `JobInvolvement`         | Tingkat keterlibatan pekerjaan.                                     | `int64`      |
+| `JobLevel`         | Level jabatan karyawan.                                     | `int64`      |
+| `JobRole`         | Posisi/jabatan spesifik karyawan.                                     | `int64`      |
+| `JobSatisfaction`         | Tingkat kepuasan pekerjaan.                                     | `int64`      |
+| `MaritalStatus`         | Status pernikahan karyawan.                                     | `int64`      |
+| `MonthlyIncome`         | Gaji bulanan karyawan.                                     | `int64`      |
+| `MonthlyRate`         | Tarif bulanan karyawan.                                     | `int64`      |
+| `NumCompaniesWorked`         | JJumlah perusahaan tempat karyawan pernah bekerja. sebelumnya.                                     | `int64`      |
+| `Over18`         | Status usia di atas 18 tahun (selalu Y dalam dataset).                                     | `int64`      |
+| `Overtime`         | Apakah karyawan sering lembur.                                     | `int64`      |
+| `PercentSalaryHike`         | Persentase kenaikan gaji tahunan terakhir.                                     | `int64`      |
+| `PerformanceRating`         | Penilaian kinerja terakhir.                                     | `int64`      |
+| `RelationshipSatifaction`         | Tingkat kepuasan terhadap hubungan kerja.                                     | `int64`      |
+| `StandardHours`         | Jam kerja standar (selalu 80 dalam dataset).                                     | `int64`      |
+| `StockOptionLevel`         | Level kepemilikan saham perusahaan.                                     | `int64`      |
+| `TotalWorkingYears`         | Total tahun pengalaman kerja.                                     | `int64`      |
+| `TrainingTimesLastYear`         | Jumlah pelatihan yang diikuti dalam setahun terakhir.                                     | `int64`      |
+| `WorkLifeBalance`         | Tingkat keseimbangan kerja–hidup.                                     | `int64`      |
+| `YearsAtCompany`         | Total tahun bekerja di perusahaan saat ini.                                     | `int64`      |
+| `YearsInCurrentRole`         | Total tahun di posisi/jabatan saat ini.                                     | `int64`      |
+| `YearsSinceLastPromotion`         | Tahun sejak promosi terakhir.                                     | `int64`      |
+| `YearsWithCurrManager`         | Tahun bekerja dengan manajer saat ini.                                     | `int64`      |
+| `Attrition`         | Target: apakah karyawan keluar dari perusahaan.                                     | `int64`      |
+
 
 
 ### [Exploratory Data Analysis] - Deskripsi Variabel
@@ -208,29 +224,36 @@ Berdasarkan analisis perbandingan antara karyawan yang mengundurkan diri dan yan
 
 Dalam tahap awal pembersihan data, dilakukan pengecekan terhadap **duplikasi data** dan **missing value**. Hasilnya menunjukkan bahwa **tidak terdapat duplikasi data** maupun **missing value** di seluruh kolom fitur maupun target. Hal ini mengindikasikan bahwa dataset sudah lengkap dan tidak memerlukan teknik imputasi lebih lanjut.
 
-| Variabel                  | Jumlah Missing Value |
-|---------------------------|----------------------|
-| clientnum                 | 0                    |
-| churn_flag                | 0                    |
-| customer_age              | 0                    |
-| gender                    | 0                    |
-| dependent_count           | 0                    |
-| education_level           | 0                    |
-| marital_status            | 0                    |
-| income_category           | 0                    |
-| card_category             | 0                    |
-| months_on_book            | 0                    |
-| total_relationship_count  | 0                    |
-| months_inactive_12_mon    | 0                    |
-| contacts_count_12_mon     | 0                    |
-| credit_limit              | 0                    |
-| total_revolving_bal       | 0                    |
-| avg_open_to_buy           | 0                    |
-| total_amt_chng_q4_q1      | 0                    |
-| total_trans_amt           | 0                    |
-| total_trans_ct            | 0                    |
-| total_ct_chng_q4_q1       | 0                    |
-| avg_utilization_ratio     | 0                    |
+| Fitur                    |   Missing |
+|:-------------------------|----------:|
+| id                       |         0 |
+| Age                      |         0 |
+| BusinessTravel           |         0 |
+| DailyRate                |         0 |
+| Department               |         0 |
+| DistanceFromHome         |         0 |
+| Education                |         0 |
+| EducationField           |         0 |
+| EmployeeNumber           |         0 |
+| EnvironmentSatisfaction  |         0 |
+| Gender                   |         0 |
+| HourlyRate               |         0 |
+| JobInvolvement           |         0 |
+| JobLevel                 |         0 |
+| JobRole                  |         0 |
+| JobSatisfaction          |         0 |
+| MaritalStatus            |         0 |
+| MonthlyIncome            |         0 |
+| MonthlyRate              |         0 |
+| NumCompaniesWorked       |         0 |
+| OverTime                 |         0 |
+| PercentSalaryHike        |         0 |
+| PerformanceRating        |         0 |
+...
+| YearsInCurrentRole       |         0 |
+| YearsSinceLastPromotion  |         0 |
+| YearsWithCurrManager     |         0 |
+| Attrition                |         0 |
 
 Berdasarkan hasil deteksi outlier menggunakan metode IQR, teridentifikasi beberapa variabel numerik yang mengandung outlier. Variabel MonthlyIncome memiliki 86 outlier, TrainingTimesLastYear mencatat outlier tertinggi sebanyak 174, dan TotalWorkingYears serta YearsAtCompany masing-masing memiliki 52 outlier. Variabel YearsSinceLastPromotion juga menunjukkan 85 outlier, sementara NumCompaniesWorked memiliki 36 outlier. 
 

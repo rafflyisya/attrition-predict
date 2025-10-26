@@ -459,15 +459,11 @@ Ketiga model ini digunakan dengan pengaturan parameter awal sebagai percobaan da
 
 #### Tabel Perbandingan Performa Model
 
-| Metrik | RandomForest | XGBoost | Stacking Ensemble |
+| Metrik | RandomForest (GridSearchCV)| XGBoost(RandomizedSearchCV) | Stacking Ensemble |
 |--------|--------------|---------|------------------|
 | ROC AUC (Val) | 0.793493 | 0.808087 | 0.948683 |
 | Akurasi (Val) | 0.858844 | 0.857143 | 0.910074 |
 | Recall (Val) | 0.157895 | 0.315789 | 0.805274 |
-
-<figure>
-    <center><img src="img/output_9.png" alt="Hasil Performa Model"></center>
-</figure>
 
 Dalam konteks prediksi attrition karyawan, evaluasi model menjadi sangat penting karena keputusan yang diambil berdasarkan model dapat memengaruhi strategi retensi, alokasi sumber daya, dan kebijakan HR. Dataset yang digunakan mencakup profil karyawan, lingkungan kerja, jabatan, beban kerja, jam lembur, kepuasan kerja, dan faktor lain yang memengaruhi keputusan karyawan untuk bertahan atau keluar. Dengan pemahaman ini, pemilihan model yang tepat sangat menentukan kualitas prediksi dan insight yang dapat diberikan kepada manajemen.
 Berdasarkan hasil validasi dari tiga pendekatan yaitu RandomForest, XGBoost, dan Stacking Ensemble,terlihat bahwa Stacking Ensemble memiliki performa terbaik. Hal ini terlihat dari skor ROC-AUC validasi tertinggi sebesar 0,9487, yang menunjukkan kemampuan model dalam membedakan karyawan yang berisiko keluar dan mereka yang kemungkinan bertahan. Sementara RandomForest dan XGBoost memiliki akurasi yang cukup tinggi (0,8588 dan 0,8571), nilai recall mereka relatif rendah (0,158 dan 0,316), sehingga model tunggal cenderung melewatkan sebagian karyawan yang berisiko keluar.
@@ -507,19 +503,11 @@ Dilakukan transform untuk preprocessing pada data test. Kemudian, dilakukan pred
 - **Kolmogorov-Smirnov (KS) Statistic**: 0.80
 
 #### Confusion Matrix
-<figure>
-    <center><img src="img/output_10.png" alt="Confusion Matrix"></center>
-</figure>
 
 #### Plot ROC-AUC Curve
-<figure>
-    <center><img src="img/output_11.png" alt="ROC-AUC Curve"></center>
-</figure>
 
 #### Plot PR-AUC Curve
-<figure>
-    <center><img src="img/output_12.png" alt="PR-AUC Curve"></center>
-</figure>
+
 
 | No | Metrik     | Nilai     |
 |----|------------|-----------|
@@ -552,15 +540,9 @@ Selain itu, **kesamaan skor antara data train, test, dan validasi** menunjukkan 
 Melakukan analisis terhadap distribusi probabilitas attrition yang diprediksi oleh model.
 
 
-<figure>
-    <center><img src="img/output_13.png" alt="Probability Plot"></center>
-</figure>
 
 Dapat dilihat bahwa ada pemisahan yang jelas antara distribusi probabilitas yang diprediksi untuk attrition dan no attrition.
 
-<figure>
-    <center><img src="img/output_14.png" alt="Probability Score Ordering"></center>
-</figure>
 
 Grafik ini membuktikan bahwa model Anda sangat akurat, karena semakin tinggi prediksi risiko attrition (Desil 1 ke 10), semakin tinggi pula tingkat attrition karyawan yang sebenarnya terjadi.
 
@@ -592,15 +574,15 @@ explainer = shap.Explainer(lgb_clf)
 shap_values = explainer(X_test_selected)
 ```
 
-- Terdapat **25 variabel** dalam model, dan untuk setiap observasi, masing-masing memiliki **nilai SHAP** yang menggambarkan kontribusinya terhadap prediksi.
+- Terdapat **35 variabel** dalam model, dan untuk setiap observasi, masing-masing memiliki **nilai SHAP** yang menggambarkan kontribusinya terhadap prediksi.
 
 - Dalam kasus klasifikasi biner, hasil prediksi dinyatakan dalam bentuk **log-odds**. Pada visualisasi berikut, $E(f(X))$ merepresentasikan **nilai rata-rata prediksi dalam skala log-odds**.
 
 - **Log-odds** sendiri merupakan logaritma dari *odds*, yaitu rasio antara probabilitas suatu kejadian terjadi dengan tidak terjadi. Penggunaan logaritma ini menjadikan skala prediksi lebih linear dan stabil.
 
-- **Nilai SHAP positif** menunjukkan bahwa suatu fitur meningkatkan nilai log-odds, yang berarti juga meningkatkan **kemungkinan pelanggan untuk churn**, sedangkan **nilai negatif** menurunkan probabilitas tersebut.
+- **Nilai SHAP positif** menunjukkan bahwa suatu fitur meningkatkan nilai log-odds, yang berarti juga meningkatkan **kemungkinan karyawan untuk attrition**, sedangkan **nilai negatif** menurunkan probabilitas tersebut.
 
-- Untuk mengubah log-odds menjadi **probabilitas churn**, digunakan fungsi logistik (sigmoid) sebagai berikut:
+- Untuk mengubah log-odds menjadi **probabilitas attrition**, digunakan fungsi logistik (sigmoid) sebagai berikut:
 
 <center>
 
@@ -610,13 +592,10 @@ $$
 
 </center>
 
-- Visualisasi **waterfall plot** digunakan untuk menunjukkan **kontribusi masing-masing fitur terhadap prediksi churn** baik untuk observasi positif (churner) maupun negatif (non-churner).
+- Visualisasi **waterfall plot** digunakan untuk menunjukkan **kontribusi masing-masing fitur terhadap prediksi attrition** baik untuk observasi positif (attrition) maupun negatif (no attrition).
 
 #### Sampel salah satu pelanggan
 
-<figure>
-    <center><img src="img/output_15.png" alt="Probability Sample Pelanggan"></center>
-</figure>
 
 - Karyawan ini diprediksi akan attrition (keluar), dengan probabilitas attrition yang sangat tinggi yaitu 95.81% (transformasi dari nilai log-odds akhir $f(x) = 3.129$ melalui fungsi logistik).
 
@@ -627,77 +606,72 @@ $$
 - Sebaliknya, satu-satunya faktor signifikan yang menahan karyawan ini adalah OverTime (Lembur) yang bernilai 0.111 (kemungkinan besar berarti "Tidak Lembur" setelah di-encode), yang menurunkan log-odds attrition sebesar 0,42. Ini menunjukkan bahwa fakta bahwa dia tidak lembur adalah satu-satunya alasan kuat untuk bertahan, namun pengaruhnya kalah telak oleh akumulasi faktor-faktor pendorong keluar lainnya..
 
 ### 2. Feature Importance
-<figure>
-    <center><img src="img/output_16.png" alt="Feature Importance"></center>
-</figure>
 
 
-- Seperti yang diharapkan, jumlah transaksi dan jumlah total transaksi dalam 12 bulan terakhir merupakan fitur yang paling penting. Hal ini sangat masuk akal, dan seperti yang telah kita lihat pada analisis eksplorasi data (EDA), variabel-variabel ini menunjukkan perbedaan yang jelas antara churners dan non-churners.  
+- Seperti yang terlihat jelas, OverTime (Lembur) merupakan fitur yang paling penting dengan selisih yang sangat besar. Fitur penting berikutnya adalah JobRole (Peran Pekerjaan) dan WorkLifeBalance (Keseimbangan Kehidupan Kerja).
 
-- Selain itu, fitur-fitur yang kita buat pada tahap **feature engineering** juga termasuk dalam daftar fitur paling penting, yang menggambarkan betapa pentingnya langkah ini dalam meningkatkan performa model pembelajaran mesin. Contohnya adalah **trans_ct_per_inactivity** dan **avg_trans_amt**.  
+- Hal ini sangat masuk akal, dan seperti yang mungkin telah terlihat pada analisis eksplorasi data (EDA), variabel-variabel ini sering menjadi pendorong utama keputusan karyawan. OverTime dan WorkLifeBalance kemungkinan menunjukkan perbedaan yang sangat jelas antara karyawan yang attrition (keluar) dan mereka yang bertahan.
+
+- Grafik ini juga menyoroti bahwa sebagian besar fitur lainnya (dari BusinessTravel ke bawah) memiliki dampak yang sangat kecil terhadap performa model, di mana nilai "Penurunan Rata-rata Skor AUC" mereka mendekati nol. Ini mengindikasikan bahwa model Anda sangat bergantung pada ketiga fitur teratas tersebut untuk membuat prediksi..  
 
 - Sekarang, melalui **beeswarm plot**, kita dapat mengamati hubungan antara fitur-fitur dan prediksi model.
 
-<figure>
-    <center><img src="img/output_17.png" alt="SHAP Value Impact"></center>
-</figure>
 
-- Terlihat bahwa nilai rendah pada jumlah transaksi dalam 12 bulan terakhir memiliki dampak positif terhadap log-odds churn, dan, akibatnya, terhadap probabilitas churn, sedangkan nilai tinggi memiliki dampak negatif.
+- Terlihat bahwa nilai tinggi (ditunjukkan oleh warna merah) pada OverTime memiliki dampak positif terhadap log-odds attrition, dan, akibatnya, terhadap probabilitas attrition, sedangkan nilai rendah (biru) memiliki dampak negatif.
 
-- Secara mengejutkan, nilai tinggi pada rata-rata jumlah transaksi justru cenderung memberikan dampak positif terhadap log-odds churn, dan, akibatnya, probabilitas churn, sedangkan nilai rendah cenderung memiliki dampak negatif.
+- Selain itu, nilai rendah (biru) pada JobSatisfaction cenderung memberikan dampak positif terhadap log-odds attrition, dan, akibatnya, probabilitas attrition, sedangkan nilai tinggi (merah) cenderung memiliki dampak negatif.
 
 ---
 
-## Financial Result
+## Attrition Result
 
-**Estimasi Dampak Finansial Model terhadap Bank**
+**Estimasi Dampak Finansial Model terhadap Perusahaan**
 
-Untuk menunjukkan nilai tambah dari analisis ini, akan disajikan performa model dalam bentuk estimasi keuntungan finansial bagi pihak bank. Analisis ini didasarkan pada **confusion matrix** dan data yang tersedia saat ini.
+Untuk menunjukkan nilai tambah dari analisis ini, akan disajikan performa model dalam bentuk estimasi keuntungan finansial (penghematan biaya) bagi pihak perusahaan. Analisis ini didasarkan pada confusion matrix dan data yang tersedia saat ini.
 
 **Asumsi Dasar:**
-Karena tidak tersedia data spesifik mengenai keuntungan aktual, digunakan asumsi umum bahwa salah satu sumber pendapatan utama bank dari kartu kredit berasal dari **biaya atas saldo kredit yang belum dibayar (total revolving balance)**. Rata-rata biaya tersebut di pasar adalah **18% per tahun**.
+Karena tidak tersedia data spesifik mengenai biaya turnover aktual, digunakan asumsi umum bahwa biaya kehilangan seorang karyawan (rekrutmen, pelatihan, kehilangan produktivitas) dan biaya retensi (bonus, kenaikan gaji) dapat diestimasi berdasarkan Gaji Bulanan (MonthlyIncome) karyawan tersebut.
 
 **Komponen Biaya dan Manfaat yang Diperhitungkan:**
 
 - **Biaya Retensi untuk False Positive (FP):**  
-  Pelanggan yang salah diprediksi akan churn namun sebenarnya tidak. Bank akan mengeluarkan biaya retensi yang tidak perlu.  
-  *Asumsi:* Bank memberikan diskon biaya dari 18% menjadi 10%, sehingga kehilangan pendapatan sebesar **8%** dari total revolving balance.
+  Karyawan yang salah diprediksi akan attrition namun sebenarnya tidak. Perusahaan akan mengeluarkan biaya retensi (misal, bonus) yang tidak perlu.  
+  *Asumsi:* Biaya retensi sebesar 1.0x Gaji Bulanan.
 
-- **Kehilangan Pendapatan dari False Negative (FN):**  
-  Pelanggan yang benar-benar churn namun gagal terdeteksi oleh model. Bank kehilangan seluruh pendapatan sebesar **18%** dari saldo mereka.
+- **Biaya Turnover dari False Negative (FN):**  
+  Karyawan yang benar-benar attrition namun gagal terdeteksi oleh model. Perusahaan menanggung biaya turnover penuh. Asumsi: Biaya turnover (rekrutmen, hilang produktivitas, dll.) sebesar 6.0x Gaji Bulanan.
 
-- **Pendapatan dari True Positive (TP):**  
-  Pelanggan yang diprediksi churn dan berhasil dipertahankan. Bank tetap memperoleh pendapatan sebesar **10%** dari saldo mereka melalui strategi retensi.
+- **Keuntungan Bersih dari True Positive (TP):**  
+  Karyawan yang diprediksi attrition dan berhasil dipertahankan. Perusahaan berhasil menghindari biaya turnover penuh, namun tetap mengeluarkan biaya retensi. Asumsi: Keuntungan bersih (biaya turnover yang dihindari dikurangi biaya retensi) adalah 5.0x Gaji Bulanan.
 
 **Langkah Selanjutnya:**
-Dilakukan perhitungan proyeksi keuntungan/kerugian berdasarkan nilai-nilai di atas menggunakan **dataset aktual untuk hasil finansial**, dengan mempertimbangkan jumlah pelanggan pada setiap kategori confusion matrix (`TP`, `FP`, `FN`) dan total revolving balance mereka.
+Dilakukan perhitungan proyeksi keuntungan bersih (penghematan biaya) berdasarkan nilai-nilai di atas menggunakan dataset aktual (non-SMOTE), dengan mempertimbangkan jumlah karyawan pada setiap kategori confusion matrix (TP, FP, FN) dan MonthlyIncome mereka.
 
-Model menghasilkan estimasi hasil finansial sekitar $175,587. Jumlah sebenarnya akan bergantung pada kebijakan manajemen bank saat mengimplementasikan strategi retensi untuk pelanggan berdasarkan probabilitas churn yang diprediksi.
+Model menghasilkan estimasi keuntungan bersih (penghematan biaya) maksimal sekitar $4.601.685. Hasil ini dicapai dengan menggunakan threshold probabilitas optimal 0.13. Pada titik ini, model merekomendasikan intervensi (strategi retensi) pada 190 karyawan, dan yang terpenting, tidak ada karyawan yang keluar yang gagal terdeteksi (FN = 0).
 
-Sebagai contoh, jika bank ingin bersikap lebih konservatif dengan mengurangi pengeluaran yang terkait dengan **false positive**, bank dapat menargetkan pelanggan dengan probabilitas churn yang lebih tinggi, sehingga memengaruhi potensi keuntungan.  
+Jumlah penghematan sebenarnya akan bergantung pada kebijakan manajemen SDM saat mengimplementasikan strategi retensi untuk karyawan berdasarkan probabilitas attrition yang diprediksi.
 
-Namun demikian, untuk tujuan estimasi dan sebagai dasar pengambilan keputusan, kita telah memastikan bahwa proyek ini sangat layak untuk dilakukan.  
+Sebagai contoh, seperti yang disebutkan dalam output, jika perusahaan ingin bersikap lebih konservatif dengan mengurangi pengeluaran yang terkait dengan False Positive (memberi bonus pada karyawan yang sebenarnya tidak akan keluar), perusahaan dapat menargetkan karyawan dengan probabilitas attrition yang lebih tinggi (menaikkan threshold), meskipun hal ini dapat sedikit memengaruhi potensi keuntungan bersih total.
+
+Namun demikian, untuk tujuan estimasi dan sebagai dasar pengambilan keputusan, kita telah memastikan bahwa proyek ini sangat layak untuk dilakukan dan berpotensi memberikan penghematan biaya yang sangat signifikan bagi perusahaan.
 
 ## Conclusions
 
 ### Ringkasan Proyek
-Dalam proyek ini, telah dikembangkan sebuah model klasifikasi berbasis LightGBM untuk memprediksi probabilitas pelanggan yang akan melakukan churn pada layanan kartu kredit sebuah bank. Tujuan utama dari pengembangan model ini adalah untuk menghasilkan prediksi yang akurat terhadap potensi churn, mengidentifikasi faktor-faktor utama yang memengaruhi keputusan pelanggan untuk berhenti menggunakan layanan, serta menyusun rekomendasi aksi yang dapat diimplementasikan guna meminimalkan tingkat churn. Dengan demikian, pihak bank dapat menyusun strategi retensi yang lebih efektif, mengingat bahwa mempertahankan pelanggan yang sudah ada umumnya lebih ekonomis dibandingkan dengan mengakuisisi pelanggan baru.
+Dalam proyek ini, telah dikembangkan sebuah model klasifikasi ensemble berbasis Stacking (menggabungkan XGBoost, LightGBM, dan CatBoost) untuk memprediksi probabilitas karyawan yang akan melakukan attrition (keluar) dari perusahaan. Tujuan utama dari pengembangan model ini adalah untuk menghasilkan prediksi yang akurat terhadap potensi turnover, mengidentifikasi faktor-faktor utama yang memengaruhi keputusan karyawan untuk berhenti, serta menyusun rekomendasi aksi yang dapat diimplementasikan guna meminimalkan tingkat turnover. Dengan demikian, pihak manajemen SDM dapat menyusun strategi retensi yang lebih efektif dan tepat sasaran, mengingat bahwa mempertahankan karyawan berprestasi umumnya jauh lebih ekonomis dibandingkan biaya rekrutmen, pelatihan, dan kehilangan produktivitas.
 
 ### Hasil dan Evaluasi Model
-Permasalahan bisnis yang diangkat telah berhasil diselesaikan dengan baik. Model yang dibangun mampu mengidentifikasi 89% pelanggan yang churn dengan tingkat akurasi AUC sebesar 0,99. Nilai AUC yang tinggi ini menunjukkan bahwa model memiliki kemampuan klasifikasi yang sangat baik, yakni dalam 99% kasus, model memberikan probabilitas churn yang lebih tinggi kepada pelanggan yang benar-benar churn dibandingkan yang tidak.
-
-Selama tahap _Exploratory Data Analysis (EDA)_, telah berhasil diidentifikasi beberapa faktor utama yang menjadi penyebab churn, dan temuan ini kemudian digunakan untuk memberikan rekomendasi awal kepada pihak bank terkait pola attrisi pelanggan.
+Permasalahan bisnis yang diangkat telah berhasil diselesaikan dengan sangat baik. Model stacking yang dibangun mampu mencapai Overall ROC-AUC yang sangat tinggi. Nilai AUC yang tinggi ini menunjukkan bahwa model memiliki kemampuan klasifikasi yang nyaris sempurna, yakni mampu memberikan probabilitas attrition yang lebih tinggi kepada karyawan yang benar-benar keluar dibandingkan dengan yang tidak. Selama tahap Exploratory Data Analysis (EDA) dan divalidasi oleh interpretasi model, telah berhasil diidentifikasi beberapa faktor utama (seperti OverTime dan JobRole) yang menjadi penyebab attrition.
 
 ### Penanganan Ketidakseimbangan Data
-Dalam menghadapi ketidakseimbangan pada variabel target, telah diterapkan beberapa strategi, antara lain: Stratified hold-out split, k-fold cross-validation, serta penggunaan hyperparameter _class_weight_. Pendekatan SMOTE secara eksplisit tidak digunakan karena dinilai kurang merepresentasikan kondisi realistis dalam dunia industri. Pendekatan yang digunakan difokuskan pada simulasi solusi data science yang praktis dan realistis.
+Dalam menghadapi ketidakseimbangan pada variabel target (Attrition), telah diterapkan strategi oversampling menggunakan SMOTE (Synthetic Minority Over-sampling Technique). Pendekatan ini digunakan untuk membuat dataset latih (X_res, y_res) yang lebih seimbang sebelum melatih model ensemble. Selain itu, Stratified K-Fold Cross-Validation digunakan selama proses validasi untuk memastikan bahwa setiap fold memiliki representasi kelas (keluar vs. bertahan) yang proporsional, sehingga evaluasi model menjadi lebih reliabel.
 
 ### Interpretasi dan Validasi Model
-Model telah diinterpretasikan dengan menggunakan teknik SHAP (SHapley Additive exPlanations) untuk mengevaluasi kontribusi setiap fitur terhadap prediksi model, baik secara global maupun individual. Hasil interpretasi ini selaras dengan temuan selama tahap EDA, yang mengindikasikan bahwa fitur-fitur yang paling berpengaruh memang sudah teridentifikasi sebelumnya. Selain itu, nilai probabilitas yang dihasilkan oleh model dinilai masuk akal dan konsisten, memperkuat kepercayaan terhadap keandalan model.
+Model telah diinterpretasikan dengan menggunakan dua teknik utama: Permutation Importance (untuk evaluasi global) dan SHAP (SHapley Additive exPlanations) (untuk evaluasi individual). Hasil dari Permutation Importance mengonfirmasi bahwa OverTime adalah fitur paling berpengaruh secara signifikan. Analisis SHAP pada level individu (seperti waterfall plot) memberikan kejelasan tentang bagaimana kombinasi fitur-fitur seperti JobSatisfaction, StockOptionLevel, dan NumCompaniesWorked berkontribusi pada prediksi log-odds untuk satu karyawan spesifik.
 
 ### Estimasi Nilai Finansial
-Berdasarkan estimasi awal, proyek ini memiliki potensi memberikan dampak finansial sebesar $171.477. Besarnya nilai manfaat aktual tentu akan sangat tergantung pada struktur biaya yang ditetapkan bank serta sejauh mana strategi retensi berbasis model ini diimplementasikan oleh manajemen. Meskipun demikian, estimasi ini memberikan dasar yang kuat untuk pengambilan keputusan bisnis.
+Berdasarkan estimasi dampak finansial, proyek ini memiliki potensi memberikan penghematan biaya bersih (Net Benefit) sekitar $4.601.685. Estimasi ini didasarkan pada asumsi biaya turnover (setara 6x gaji bulanan) dan biaya retensi (setara 1x gaji bulanan) yang dihitung dari MonthlyIncome. Analisis ini juga menunjukkan bahwa dengan menyesuaikan threshold probabilitas (ke 0.13), perusahaan dapat memaksimalkan keuntungan bersih dan secara teoretis mengeliminasi seluruh False Negative (FN = 0). Besarnya nilai manfaat aktual tentu akan sangat tergantung pada struktur biaya SDM yang sebenarnya serta implementasi strategi retensi oleh manajemen.
 
 ### Langkah Selanjutnya
-Tahap selanjutnya dari proyek ini adalah deploy model ke dalam lingkungan produksi dengan menerapkan prinsip _Continuous Integration/Continuous Deployment_ (CI/CD). Langkah ini bertujuan untuk memastikan proses otomatisasi yang berkelanjutan serta pemeliharaan model yang efisien dan dapat diandalkan di lingkungan operasional.
-
+Tahap selanjutnya dari proyek ini adalah deploy model ke dalam lingkungan produksi dengan menerapkan prinsip Continuous Integration/Continuous Deployment (CI/CD). Langkah ini bertujuan untuk memastikan proses otomatisasi yang berkelanjutan serta pemeliharaan model yang efisien dan dapat diandalkan di lingkungan operasional, misalnya dengan memberikan "skor risiko attrition" pada dasbor SDM secara real-time.
 

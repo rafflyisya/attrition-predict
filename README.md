@@ -314,14 +314,12 @@ Meskipun demikian, outlier **tidak dihapus** dari dataset. Hal ini dilakukan unt
 
 #### Grafik 3: Distribusi Fitur Kategorik
 <figure>
-    <center><img src="img/output_4.png" alt="Distribusi Fitur Kategorik"></center>
+    <center><img src="img/categorical chart.png" alt="Distribusi Fitur Kategorik"></center>
 </figure>
 
-- 53% nasabah adalah perempuan, dan sebagian besar memiliki 2–3 tanggungan. Sebanyak 90% tidak aktif selama 1–3 bulan terakhir, sehingga perlu strategi untuk meningkatkan penggunaan layanan.
+- Berdasarkan hasil visualisasi distribusi variabel kategorikal, dapat diketahui bahwa mayoritas karyawan tidak melakukan lembur, yang menunjukkan bahwa beban kerja tambahan di perusahaan ini relatif rendah. Dari segi status pernikahan, sebagian besar karyawan sudah menikah, diikuti oleh yang belum menikah dan sedikit yang bercerai. Hal ini mengindikasikan bahwa mayoritas tenaga kerja berada pada fase kehidupan yang relatif stabil. Jika dilihat dari peran pekerjaan (job role), posisi yang paling banyak diisi adalah Sales Executive dan Research Scientist, sedangkan posisi seperti Human Resources dan Research Director memiliki jumlah karyawan yang jauh lebih sedikit.
 
-- Mayoritas nasabah menghubungi bank 2–3 kali setahun, berstatus menikah/lajang, lulusan sarjana, berpenghasilan < $40K, dan memiliki kartu blue.
-
-- Beberapa kategori seperti 0 bulan tidak aktif dan 6 kali kontak sangat jarang muncul. Selain itu, kategori kartu tidak seimbang—93% nasabah memakai kartu blue. Ketidakseimbangan ini perlu diperhatikan saat pemodelan untuk menghindari overfitting.
+- Komposisi gender menunjukkan bahwa karyawan laki-laki mendominasi dibanding perempuan, yang mungkin dipengaruhi oleh karakteristik industri yang lebih banyak membutuhkan tenaga kerja laki-laki. Dari segi bidang pendidikan, mayoritas karyawan berasal dari bidang Life Sciences dan Medical, yang menunjukkan bahwa perusahaan cenderung berfokus pada industri berbasis penelitian dan kesehatan. Departemen dengan jumlah karyawan terbanyak adalah Research & Development, diikuti oleh Sales, sedangkan Human Resources memiliki proporsi paling kecil. Selain itu, sebagian besar karyawan jarang melakukan perjalanan dinas (Travel Rarely), menandakan bahwa aktivitas pekerjaan banyak dilakukan di dalam kantor atau laboratorium. Secara keseluruhan, struktur tenaga kerja perusahaan ini menggambarkan organisasi yang berorientasi pada penelitian dan pengembangan dengan dominasi tenaga kerja laki-laki berlatar belakang sains, serta beban kerja dan mobilitas yang relatif stabil.
 
 
 

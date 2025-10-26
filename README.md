@@ -21,8 +21,6 @@
   - [Exploratory Data Analysis (EDA)](#exploratory-data-analysis---deskripsi-variabel)
     - [Missing Value & Outliers](#exploratory-data-analysis---menangani-missing-value-dan-outliers)
     - [Univariate Analysis](#exploratory-data-analysis---univariate-analysis)
-    - [Multivariate Analysis](#exploratory-data-analysis---multivariate-analysis)
-    - [Kesimpulan EDA](#kesimpulan-eda)
 - [Data Preparation](#data-preparation)
   - [Label Encoding dengan Mapping pada Fitur Target](#1-label-encoding-dengan-mapping-pada-fitur-target)
   - [Splitting Dataset](#2-splitting-dataset)
